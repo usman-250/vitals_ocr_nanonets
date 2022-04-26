@@ -19,7 +19,7 @@ import base64
 # import boto3
 import time
 import json
-import cv2
+# import cv2
 import io
 import requests
 
