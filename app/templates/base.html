@@ -24,51 +24,20 @@
             <div id="navbarMenuHeroA" class="navbar-menu">
               <div class="navbar-end">
                 <a
-                  href="{{ url_for('main.index') }}"
+                  href="{{ url_for('index') }}"
                   class="navbar-item"
                   style="font-size: 1.5em; color: #7a7a7a"
                 >
                   Home
                 </a>
-                {% if current_user.is_authenticated %}
                 <a
-                  href="{{ url_for('main.uploading') }}"
+                  href="{{ url_for('uploading') }}"
                   class="navbar-item"
                   style="font-size: 1.5em; color: #7a7a7a"
                 >
                   Upload
                 </a>
-                <!-- <a
-                  href="{{ url_for('main.show_emails') }}"
-                  class="navbar-item"
-                  style="font-size: 1.5em; color: #7a7a7a"
-                >
-                  Show Data
-                </a> -->
-                {% endif %} {% if not current_user.is_authenticated %}
-                <a
-                  href="{{ url_for('auth.login') }}"
-                  class="navbar-item"
-                  style="font-size: 1.5em; color: #7a7a7a"
-                >
-                  Login
-                </a>
-                <a
-                  href="{{ url_for('auth.signup') }}"
-                  class="navbar-item"
-                  style="font-size: 1.5em; color: #7a7a7a"
-                >
-                  Sign Up
-                </a>
-                {% endif %} {% if current_user.is_authenticated %}
-                <a
-                  href="{{ url_for('auth.logout') }}"
-                  class="navbar-item"
-                  style="font-size: 1.5em; color: #7a7a7a"
-                >
-                  Logout
-                </a>
-                {% endif %}
+                
               </div>
             </div>
           </div>

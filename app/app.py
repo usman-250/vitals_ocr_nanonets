@@ -2,15 +2,15 @@ import sys,os
 # sys.path.append('./Flask_app/')
 
 from flask import Flask, request, render_template, redirect,url_for,redirect,Blueprint
-# from flask_login import login_required, current_user, login_user
+from flask_login import login_required, current_user, login_user
 # from flask_session import Session
 
-# from .helper_functions import get_lcd, imgs_to_array
+from .helper_functions import get_lcd, imgs_to_array
 from werkzeug.utils import secure_filename
 # from keras.models import load_model
 from bson.objectid import ObjectId
 from .models import User
-# from flask import jsonify
+from flask import jsonify
 from PIL import Image
 import numpy as np
 from .db import *
@@ -27,20 +27,34 @@ import requests
 
 
 app=Flask(__name__)
+main = Blueprint('main', __name__)
 
 # main.config["SESSION_PERMANENT"] = False
 # main.config["SESSION_TYPE"] = "filesystem"
 # Session(main)
 
-@app.route('/')
+@main.route('/')
 def index():
     # if not Session.get("name"):
     #     return redirect("/")
     return render_template('index.html')
 
-@app.route('/upload')
+@main.route('/upload')
 def uploading():
     return render_template('uploading.html')
+
+@main.route('/emails', methods=['GET', 'POST'])
+@login_required
+def show_emails():
+    if request.method == 'POST':
+        email = request.form['emailDropdown']
+        email_docs = find_documents_on_email(predictions_col,email)
+        all_emails = return_all_users_email(predictions_col)
+
+        return render_template('show_emails.html', emails=list(set(all_emails)), data=email_docs)
+    else:
+        all_emails = return_all_users_email(predictions_col)
+        return render_template('show_emails.html',emails=list(set(all_emails)))
 
 
 def get_device_cat(files_add):
@@ -85,15 +99,13 @@ def extract_data_from_glucometer(file_path):
 
 
 
-@app.route('/prediction', methods=['GET', 'POST'])
+@main.route('/prediction', methods=['GET', 'POST'])
+@login_required
 def prediction():
     try:
         if request.method == 'POST':
             if request.files.getlist('myimage'):
                 files_add = request.files.getlist("myimage")
-            
-                print("\n\n---->>>> Device category : ",files_add)
-            
 
             device_cat, file_path = get_device_cat(files_add)
             print("\n\n---->>>> Device category : ",device_cat)
@@ -115,8 +127,8 @@ def prediction():
         device_varrient = ""
         company_name = ""
 
-        user_name = ''
-        user_email = ''
+        user_name = current_user.name
+        user_email = current_user.email
         user_role = ""
 
         predicted_at = str(datetime.datetime.utcnow()) # utc time
@@ -188,7 +200,8 @@ def prediction():
         return render_template('uploading.html',message = "unable to extract data, Try with another image")
 
 
-@app.route('/saving', methods=['GET', 'POST'])
+@main.route('/saving', methods=['GET', 'POST'])
+@login_required
 def saving():
     if request.method == 'POST':
         # print("\n\n====>>>> fjldkjsd  request json",request.form['inppreds'])
@@ -260,8 +273,8 @@ def make_final_dict(device_make,device_launch_date,device_varrient, device_type,
     return final_preds
 
 
-# if __name__ == '__main__':
-#     app.run(debug = False)
+if __name__ == '__main__':
+    app.run(debug = False)
 
 
 

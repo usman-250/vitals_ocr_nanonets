@@ -18,33 +18,7 @@
   {% extends "base.html" %} {% block content %}
   <br><br>
   <h1>Prevention is Better than CURE</h1>
-  <form action="{{ url_for('main.prediction')}}" id="tests" method="POST" enctype="multipart/form-data">
-    <!-- <div class="testDropdown">
-      <label for="testDropdown">Select your Test</label>
-      <select id='testdropdownid' name="testDropdown" form="tests">
-        <option value="bp">Blood Pressure</option>
-        <option value="temp">Temprature</option>
-        <option value="glc">Glucose</option>
-      </select>
-    </div>
-
-
-    <div class="deviceDropdown">
-      <label for="deviceDropdown">Select your Device</label>
-
-      <select id='glc' name="deviceDropdown" form="tests">
-        <option value="td">Table Device</option>
-        <option value="md">Mobile Device</option>
-      </select>
-
-      <select id='bp' name="deviceDropdown" form="tests">
-        <option value="td">Table Device</option>
-      </select>
-
-      <select id='temp' name="deviceDropdown" form="tests">
-        <option value="td">Table Device</option>
-      </select>
-    </div> -->
+  <form action="{{ url_for('prediction')}}" id="tests" method="POST" enctype="multipart/form-data">
 
     <h1 id='uploadh'>Upload Image </h1>
     <div class="wrapper">
