@@ -3,7 +3,7 @@ import pymongo
 from pymongo.collection import ReturnDocument
 
 
-myclient = pymongo.MongoClient("mongodb://0.0.0.0/0/")
+myclient = pymongo.MongoClient("mongodb+srv://quure:mongo_250@quure.kfewm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 mydb = myclient["qure"]
 
 predictions_col = mydb["predictions"]
