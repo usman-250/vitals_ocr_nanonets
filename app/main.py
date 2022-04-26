@@ -91,9 +91,7 @@ def prediction():
         if request.method == 'POST':
             if request.files.getlist('myimage'):
                 files_add = request.files.getlist("myimage")
-            
-                print("\n\n---->>>> Device category : ",files_add)
-            
+                        
 
             device_cat, file_path = get_device_cat(files_add)
             print("\n\n---->>>> Device category : ",device_cat)
@@ -159,6 +157,7 @@ def prediction():
         user_info = final_preds.get('user')
         #insert user info
         user_id = update_doc(users_col,'user_email',user_info)
+        print("\n\n---->>>> after update DB  : ",upper_value," : : ", lower_value)
 
 
         device_info = final_preds.get('device')
