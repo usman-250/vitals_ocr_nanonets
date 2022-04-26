@@ -13,7 +13,7 @@ from werkzeug.utils import secure_filename
 # from flask import jsonify
 from PIL import Image
 import numpy as np
-# from .db import *
+from .db import *
 import datetime
 import base64
 # import boto3
@@ -156,16 +156,16 @@ def prediction():
         #################################
         user_info = final_preds.get('user')
         #insert user info
-        # user_id = update_doc(users_col,'user_email',user_info)
+        user_id = update_doc(users_col,'user_email',user_info)
 
 
         device_info = final_preds.get('device')
         #insert device info
-        # device_id = update_device_doc(devices_col,['device_name','device_type','device_model'],device_info)
+        device_id = update_device_doc(devices_col,['device_name','device_type','device_model'],device_info)
 
         # print('\n\n\n===>>>>>>>>>>> ', str(user_id['_id']))
-        # final_preds["prediction"]["user_id"] = str(user_id['_id'])
-        # final_preds["prediction"]["device_id"] = str(device_id['_id'])
+        final_preds["prediction"]["user_id"] = str(user_id['_id'])
+        final_preds["prediction"]["device_id"] = str(device_id['_id'])
         #############################################
         
 
@@ -197,8 +197,8 @@ def saving():
         # user_info = json_data.get('user')
         # device_info = json_data.get('device')
         pred_info = json_data.get('prediction')
-        # pred_info['user_id'] = str(pred_info['user_id'])
-        # pred_info['device_id'] = str(pred_info['device_id'])
+        pred_info['user_id'] = str(pred_info['user_id'])
+        pred_info['device_id'] = str(pred_info['device_id'])
 
         # #insert user info
         # user_inserted = update_doc(users_col,'user_email',user_info)
@@ -209,7 +209,7 @@ def saving():
         # # device_inserted = devices_col.update_one( { 'device_name': device_info['device_name']} , {'$set':device_info}, upsert=True)
 
         #insert prediction info
-        # pred_inserted = insert_doc(predictions_col,pred_info)
+        pred_inserted = insert_doc(predictions_col,pred_info)
         # pred_inserted = predictions_col.insert_one(pred_info.copy())
 
 
