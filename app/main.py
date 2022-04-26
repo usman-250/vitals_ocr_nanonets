@@ -157,7 +157,6 @@ def prediction():
         user_info = final_preds.get('user')
         #insert user info
         # user_id = update_doc(users_col,'user_email',user_info)
-        print("\n\n---->>>> after update DB : ",upper_value," : : ", lower_value)
 
 
         device_info = final_preds.get('device')
