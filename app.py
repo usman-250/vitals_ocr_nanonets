@@ -5,15 +5,14 @@ from flask import Flask, request, render_template, redirect,url_for,redirect,Blu
 from flask_login import login_required, current_user, login_user
 # from flask_session import Session
 
-from .helper_functions import get_lcd, imgs_to_array
 from werkzeug.utils import secure_filename
 # from keras.models import load_model
 from bson.objectid import ObjectId
-from .models import User
+# from models import User
 from flask import jsonify
 from PIL import Image
 import numpy as np
-from .db import *
+from database.db import *
 import datetime
 import base64
 # import boto3
@@ -33,8 +32,10 @@ main = Blueprint('main', __name__)
 # main.config["SESSION_TYPE"] = "filesystem"
 # Session(main)
 
+print('--->>>',os.getcwd())
 @main.route('/')
 def index():
+    print('-=====>>>>>> in index')
     # if not Session.get("name"):
     #     return redirect("/")
     return render_template('index.html')
@@ -273,8 +274,8 @@ def make_final_dict(device_make,device_launch_date,device_varrient, device_type,
     return final_preds
 
 
-if __name__ == '__main__':
-    app.run(debug = False)
+# if __name__ == '__main__':
+#     app.run(debug = False)
 
 
 
