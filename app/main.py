@@ -13,7 +13,7 @@ from .models import User
 # from flask import jsonify
 from PIL import Image
 import numpy as np
-from .db import *
+# from .db import *
 import datetime
 import base64
 # import boto3
